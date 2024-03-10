@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="font-family: FredokaOne;">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">
+            <img src="/images/bus.jpg" alt="logo" width="100"/>
+            <span>SimpleBus</span>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav" sec:authorize="isAuthenticated()">
+                <a href="/parent" class="nav-item nav-link" sec:authorize="hasAuthority('PARENT')">Dashboard</a>
+                <a href="/driver" class="nav-item nav-link" sec:authorize="hasAuthority('DRIVER')">Dashboard</a>
+                <a href="/admin" class="nav-item nav-link" sec:authorize="hasAuthority('ADMIN')">Dashboard</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a href="/user/logout" class="nav-item nav-link" sec:authorize="isAuthenticated()">Logout</a>
+                <a href="/user/login" class="nav-item nav-link" sec:authorize="!isAuthenticated()">Login/Sign Up</a>
+            </div>
+        </div>
+    </div>
+</nav>

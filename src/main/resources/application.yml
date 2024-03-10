@@ -1,0 +1,54 @@
+spring:
+    jpa:
+        database: mysql
+        database-platform: org.hibernate.dialect.MySQLDialect
+        hibernate:
+            ddl-auto: validate
+        show-sql: false
+        properties:
+            hibernate:
+                format_sql: true
+                jdbc:
+                    time_zone: UTC
+                naming:
+                    physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+                    implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    datasource:
+        url: jdbc:mysql://127.0.0.1:3306/bus_management_system
+        username: root
+        password: C$2$xsDMp44
+    output:
+        ansi:
+            enabled: always
+    thymeleaf:
+        prefix: classpath:/templates/
+        suffix: .html
+        mode: HTML5
+        encoding: UTF-8
+        content-type: text/html # ;charset=<encoding> is added
+        cache: true # set to false for hot refresh
+---
+server:
+    servlet:
+        context-path: /
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+    port: 8081
+---
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+---
+logging:
+    level:
+        org.polidoraian: DEBUG
+    file:
+        name: /Users/ipolidora/Development/TEKsystemsBootcamp/Polidora_Ian_SimpleBus_CaseStudy/logs/SimpleBus.log
+    logback:
+        rollingpolicy: file-name-pattern=SimpleBus-%d{yyyy-MM-dd}.%i.log
+    pattern:
+        console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint}%clr(${LOG_LEVEL_PATTERN:%6p}) %clr(${PID:- }){magenta} %clr(---){faint}%clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint}%m%n"
