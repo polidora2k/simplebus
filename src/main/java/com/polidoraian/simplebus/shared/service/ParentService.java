@@ -26,7 +26,7 @@ public class ParentService {
 	private StudentService studentService;
 	
 	public StudentDTO addStudent(StudentCreationDTO studentCreationDTO, Integer parentId) {
-		Student newStudent = studentMapper.toStudent(studentCreationDTO);
+		Student newStudent = studentMapper.creationDtoToEntity(studentCreationDTO);
 		log.debug("addStudent in service");
 		newStudent.setParentId(parentId);
 		newStudent.setRiding(true);
@@ -34,18 +34,18 @@ public class ParentService {
 		
 		studentDAO.save(newStudent);
 		
-		return studentMapper.toStudentDTO(newStudent);
+		return studentMapper.entityToDto(newStudent);
 	}
 	
 	public List<StudentDTO> getAllStudents(Integer parentId){
 		List<Student> students = studentDAO.findByParentId(parentId);
 		
-		return students.stream().map(s -> studentMapper.toStudentDTO(s)).collect(Collectors.toList());
+		return students.stream().map(studentMapper::entityToDto).collect(Collectors.toList());
 	}
 	
 	public List<StudentDTO> getRidingStudents(Integer parentId){
 		List<Student> students = studentDAO.findRidingStudentsForParent(parentId);
-		List<StudentDTO> studentDTOs = students.stream().map(s -> studentMapper.toStudentDTO(s)).collect(Collectors.toList());
+		List<StudentDTO> studentDTOs = students.stream().map(studentMapper::entityToDto).collect(Collectors.toList());
 		
 		studentDTOs.forEach(s -> s.setStatus(studentService.getStudentStatus(s)));
 		return studentDTOs;

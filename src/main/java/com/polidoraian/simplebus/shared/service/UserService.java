@@ -31,7 +31,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 
 	public UserDTO signup(UserCreationDTO userCreationDTO) {
-		User newUser = userMapper.toUser(userCreationDTO);
+		User newUser = userMapper.creationDtoToEntity(userCreationDTO);
 		UserRole userRole = new UserRole();
 		
 		String encodedPassword = passwordEncoder.encode(userCreationDTO.getPassword());
@@ -56,6 +56,6 @@ public class UserService {
 		
 		userRoleDAO.save(userRole);
 		
-		return userMapper.toUserDTO(newUser);
+		return userMapper.entityToDto(newUser);
 	}
 }

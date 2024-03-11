@@ -1,5 +1,6 @@
-package com.polidoraian.simplebus;
+package com.polidoraian.simplebus.shared;
 
+import com.polidoraian.simplebus.shared.SimpleBusApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

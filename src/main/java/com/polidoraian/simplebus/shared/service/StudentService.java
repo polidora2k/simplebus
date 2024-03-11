@@ -2,7 +2,6 @@ package com.polidoraian.simplebus.shared.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,7 +38,7 @@ public class StudentService {
 		StudentDTO sd = new StudentDTO();
 
 		if (s.isPresent()) {
-			sd = studentMapper.toStudentDTO(s.get());
+			sd = studentMapper.entityToDto(s.get());
 		}
 
 		return sd;
@@ -98,7 +97,7 @@ public class StudentService {
 	public List<StudentDTO> getStudentsByStop(StopDTO stop) {
 		List<Student> students = studentDAO.findByStopIdAndRiding(stop.getId(), true);
 
-		return students.stream().map(s -> studentMapper.toStudentDTO(s)).collect(Collectors.toList());
+		return students.stream().map(studentMapper::entityToDto).collect(Collectors.toList());
 	}
 
 	public List<StudentDTO> getStudentsForRoute(RouteDTO route) {

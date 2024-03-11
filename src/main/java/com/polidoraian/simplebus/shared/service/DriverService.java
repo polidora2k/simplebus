@@ -43,7 +43,7 @@ public class DriverService {
 		if (dr.isPresent()) {
 			Optional<User> driver = userDAO.findById(dr.get().getUserId());
 			if (driver.isPresent()) {
-				return userMapper.toUserDTO(driver.get());
+				return userMapper.entityToDto(driver.get());
 			}
 		}
 		

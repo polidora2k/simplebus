@@ -71,7 +71,7 @@ public class AuthenticatedUserService {
 			user = userDao.findByEmail(getCurrentUsername());
 			session.setAttribute("user", user);
 		}
-		return userMapper.toUserDTO(user);
+		return userMapper.entityToDto(user);
 	}
 	
 	public boolean isAuthenticated() {
