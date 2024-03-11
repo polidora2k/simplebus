@@ -52,3 +52,6 @@ logging:
         rollingpolicy: file-name-pattern=SimpleBus-%d{yyyy-MM-dd}.%i.log
     pattern:
         console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint}%clr(${LOG_LEVEL_PATTERN:%6p}) %clr(${PID:- }){magenta} %clr(---){faint}%clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint}%m%n"
+---
+google:
+    api-key: "AIzaSyB3p3rsbl0XY4BbtDdSpik9s1ms7_b49iw"
