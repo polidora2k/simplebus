@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Dashboard</title>
+  <div th:replace="~{fragments/header}"></div>
+</head>
+<body style="font-family: FredokaOne; background-color: #EFF3F3;">
+<div class="d-flex vh-100 flex-column">
+  <div th:replace="~{fragments/navbar}"></div>
+  <div class="container w-50 my-3">
+    <div class="row m-1 fs-1">
+      <p> Welcome <span class="text-warning">${user.firstName}</span>!</p>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Today's Route(s)</h5>
+            <c:if test="${empty routes}">
+              No routes today
+            </c:if>
+            <c:if test="${not empty routes}">
+              <div class="list-group mx-3 my-3">
+                <c:forEach items="${routes}" var="route">
+                  <a href="/driver/route/${route.id}"
+                     class="list-group-item list-group-item-action text-start">${route.name}</a>
+                </c:forEach>
+              </div>
+            </c:if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

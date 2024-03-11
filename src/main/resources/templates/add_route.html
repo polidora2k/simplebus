@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Add Route</title>
+  <div th:replace="~{fragments/header}"></div>
+</head>
+<body style="font-family: FredokaOne; background-color: #EFF3F3;">
+<div class="d-flex vh-100 flex-column">
+  <!-- NAVIGATION BAR -->
+  <div th:replace="~{fragments/navbar}"></div>
+
+  <!-- SIGN UP FORM -->
+  <div class="border align-self-center shadow rounded p-3 my-auto bg-light ">
+    <form class="needs-validation" style="width: 500px;" action="/admin/addroute" method="POST"
+          novalidate>
+      <h1 class="text-left mb-4 mt-3 ms-3">Add New Route</h1>
+      <div class="container">
+        <div class="row mt-3">
+          <div class="col">
+            <label for="routeName" class="form-label">Route Name<span
+                    class="text-danger">*</span></label>
+            <div class="has-validation">
+              <input type="text" name="routeName" class="form-control" id="routeName"
+                     value="${form.routeName}" required/>
+              <div class="text-danger">
+                ${firstNameMessage}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 my-4 text-center">
+            <button type="submit" class="btn btn-warning px-4">Add</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

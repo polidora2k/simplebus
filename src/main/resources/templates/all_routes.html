@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Routes</title>
+  <div th:replace="~{fragments/header}"></div>
+</head>
+<body style="font-family: FredokaOne; background-color: #EFF3F3;">
+<div class="d-flex vh-100 flex-column">
+  <div th:replace="~{fragments/navbar}"></div>
+  <div class="container w-75 my-3">
+    <div class="row m-1 fs-1">
+      <p> Routes: </p>
+    </div>
+    <div class="row m-2">
+      <div class="col-6">
+        <div class="card text-center">
+          <div class="card-header">
+            Route Management
+          </div>
+          <div class="card-body">
+            <p class="card-text">Manage route information and status for your account.</p>
+            <a class="btn btn-warning" href="/admin/addroute">Add New Route</a>
+            <a href="/admin/resetroutes" class="btn btn-warning">Reset All Routes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

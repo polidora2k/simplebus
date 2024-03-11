@@ -1,51 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>SimpleBus</title>
-    <div th:replace="~{fragments/header}"></div>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>SimpleBus</title>
+  <div th:replace="~{fragments/header}"></div>
 </head>
 <body style="font-family: FredokaOne;">
 <div class="d-flex vh-100 flex-column" style="overflow: hidden; position: relative;">
-    <img src="/images/bus-bg.jpg" alt="" style="opacity: 0.6;
+  <img src="/images/bus-bg.jpg" alt="" style="opacity: 0.6;
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: auto;">
-    <div th:replace="~{fragments/navbar}"></div>
-    <div class="border align-self-center shadow rounded p-3 my-auto bg-light container w-50"
-         style="position: relative;">
-        <h1 class="text-center mb-5 mt-3">Welcome to SimpleBus!</h1>
-        <p class="text-center">
-            SimpleBus is an easy to use software for both parents and drivers to easily manage bus routes and students.
-            Parents are able to track buses to ensure that their child arrives safely at home. Drivers can also optimize
-            their
-            by knowing what students will be riding each day. Simplify the school bus experience today by signing up or
-            logging
-            in below!
-        </p>
-        <div class="row mt-5 mb-4" sec:authorize="isAuthenticated()">
-            <div class="col text-center" sec:authorize="hasAuthority('PARENT')">
-                <a class="btn btn-warning w-50" href="/parent" role="button">Parent</a>
-            </div>
-            <div class="col text-center" sec:authorize="hasAuthority('DRIVER')">
-                <a class="btn btn-warning w-50" href="/driver" role="button">Driver</a>
-            </div>
-            <div class="col text-center" sec:authorize="hasAuthority('ADMIN')">
-                <a class="btn btn-warning w-50" href="/admin" role="button">Administrator</a>
-            </div>
-        </div>
-        <div class="row mt-5 mb-4" sec:authorize="!isAuthenticated()">
-            <div class="col text-end">
-                <a class="btn btn-warning w-50" href="/user/login" role="button">Login</a>
-            </div>
-            <div class="col text-start">
-                <a class="btn btn-warning w-50" href="/user/signup" role="button">Sign Up</a>
-            </div>
-        </div>
+  <div th:replace="~{fragments/navbar}"></div>
+  <div class="border align-self-center shadow rounded p-3 my-auto bg-light container w-50"
+       style="position: relative;">
+    <h1 class="text-center mb-5 mt-3">Welcome to SimpleBus!</h1>
+    <p class="text-center">
+      SimpleBus is an easy to use software for both parents and drivers to easily manage bus routes and students.
+      Parents are able to track buses to ensure that their child arrives safely at home. Drivers can also optimize
+      their
+      by knowing what students will be riding each day. Simplify the school bus experience today by signing up or
+      logging
+      in below!
+    </p>
+    <div class="row mt-5 mb-4" sec:authorize="isAuthenticated()">
+      <div class="col text-center" sec:authorize="hasAuthority('PARENT')">
+        <a class="btn btn-warning w-50" href="/parent" role="button">Parent</a>
+      </div>
+      <div class="col text-center" sec:authorize="hasAuthority('DRIVER')">
+        <a class="btn btn-warning w-50" href="/driver" role="button">Driver</a>
+      </div>
+      <div class="col text-center" sec:authorize="hasAuthority('ADMIN')">
+        <a class="btn btn-warning w-50" href="/admin" role="button">Administrator</a>
+      </div>
     </div>
-</div>
+    <div class="row mt-5 mb-4" sec:authorize="!isAuthenticated()">
+      <div class="col text-end">
+        <a class="btn btn-warning w-50" href="/user/login" role="button">Login</a>
+      </div>
+      <div class="col text-start">
+        <a class="btn btn-warning w-50" href="/user/signup" role="button">Sign Up</a>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>

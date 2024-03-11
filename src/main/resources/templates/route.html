@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Route</title>
+  <div th:replace="~{fragments/header}"></div>
+</head>
+<link rel="stylesheet" href="/styles/student.css" type="text/css"/>
+<script>
+  function initMap() {
+      let bounds = new google.maps.LatLngBounds();
+      let locations = ${ stopLocations };
+      console.log(locations);
+      let center = new google.maps.LatLng(locations[0], locations[1]);
+      console.log("center: " + center);
+      let map = new google.maps.Map(document.getElementById('routeMap'), { center: center });
+
+      for (i = 0; i < locations.length; i += 2) {
+          let marker = new google.maps.Marker({
+              position: new google.maps.LatLng(locations[i], locations[i + 1]),
+              map: map
+          });
+          bounds.extend(marker.position);
+      }
+
+      map.setCenter(bounds.getCenter());
+      map.fitBounds(bounds);
+  }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3p3rsbl0XY4BbtDdSpik9s1ms7_b49iw&callback=initMap"></script>
+
+<body style="font-family: FredokaOne; background-color: #EFF3F3;">
+<div class="d-flex vh-100 flex-column">
+  <!-- NAVIGATION BAR -->
+  <div th:replace="~{fragments/navbar}"></div>
+
+  <div class="border align-self-center shadow rounded p-3 my-auto bg-light w-75 container">
+    <div class="row border-bottom border-4 pb-3">
+      <div class="col">
+        <input type="hidden" value="${route.id}" id="routeId" name="routeId">
+        <div class="row">
+          <h2>${route.name}</h2>
+        </div>
+        <div class="row">
+          <p class="mb-0">${student.streetAddress}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col p-4 ps-5">
+        <h5>Stops:</h5>
+        <div class="overflow-auto border rounded" style="height: 400px; background-color: #EFF3F3;">
+          <c:if test="${empty stops}">
+            <div class="text-center w-100 h-100">
+              <span class=" align-middle text-muted">No unassigned stops</span>
+            </div>
+          </c:if>
+          <c:if test="${not empty stops}">
+            <ul class="list-group">
+              <c:forEach items="${stops}" var="stop">
+                <li class="list-group-item">${stop.name}: ${stop.streetAddress} ${stop.city}
+                </li>
+              </c:forEach>
+            </ul>
+          </c:if>
+        </div>
+        <a href="/driver/route/${route.id}/onboarding" class="btn btn-warning mt-2 w-100">Start Route</a>
+      </div>
+      <div class="col p-4 ps-5">
+        <div class="row">
+          <div class="col">
+            <h5>Map:</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div id="routeMap" class="w-100" style="height: 400px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
