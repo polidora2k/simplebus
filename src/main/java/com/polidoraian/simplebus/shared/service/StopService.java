@@ -11,6 +11,7 @@ import com.polidoraian.simplebus.shared.database.entity.Stop;
 import com.polidoraian.simplebus.shared.dto.StopCreationDTO;
 import com.polidoraian.simplebus.shared.dto.StopDTO;
 import com.polidoraian.simplebus.shared.dto.mapper.StopMapper;
+import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,29 +22,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class StopService {
-
-	@Autowired
-    StopDAO stopDAO;
-
-	@Autowired
-    StopMapper stopMapper;
-
-	@Autowired
-	private MapsService mapsService;
+    private final StopDAO stopDAO;
+    private final StopMapper stopMapper;
+	private final MapsService mapsService;
+	private final StudentDAO studentDAO;
 	
 	@Autowired
-	private StudentDAO studentDAO;
-
+	public StopService(@Nonnull final StopDAO stopDAO,
+					   @Nonnull final StopMapper stopMapper,
+					   @Nonnull final MapsService mapsService,
+					   @Nonnull final StudentDAO studentDAO) {
+		this.stopDAO = stopDAO;
+		this.stopMapper = stopMapper;
+		this.mapsService = mapsService;
+		this.studentDAO = studentDAO;
+	}
+	
 	public StopDTO getStop(Integer id) {
 		Optional<Stop> stop = stopDAO.findById(id);
         
-        return stop.map(value -> stopMapper.toStopDTO(value)).orElse(null);
+        return stop.map(stopMapper::entityToDto).orElse(null);
 	}
 
 	public List<StopDTO> getRouteStops(Integer routeId) {
 		List<Stop> stops = stopDAO.findByRouteIdOrderByRouteStopNumberAsc(routeId);
 
-		return stops.stream().map(s -> stopMapper.toStopDTO(s)).collect(Collectors.toList());
+		return stops.stream().map(stopMapper::entityToDto).collect(Collectors.toList());
 	}
 	
 	public List<StopDTO> getRouteStopsWithStudents(Integer routeId) {
@@ -52,7 +56,7 @@ public class StopService {
 		
 		for (Stop stop : stops) {
 			if (studentDAO.countByStopIdAndRiding(stop.getId(), true) > 0) {
-				stopDTOs.add(stopMapper.toStopDTO(stop));
+				stopDTOs.add(stopMapper.entityToDto(stop));
 			}
 		}
 
@@ -62,25 +66,25 @@ public class StopService {
 	public StopDTO getRouteStopByNumber(Integer routeId, Integer stopNumber) {
 		Optional<Stop> stop = stopDAO.findByRouteIdAndRouteStopNumber(routeId, stopNumber);
         
-        return stop.map(value -> stopMapper.toStopDTO(value)).orElse(null);
+        return stop.map(stopMapper::entityToDto).orElse(null);
         
     }
 
 	public List<StopDTO> getUnassignedStops() {
 		List<Stop> stops = stopDAO.findByRouteId(null);
 
-		return stops.stream().map(s -> stopMapper.toStopDTO(s)).collect(Collectors.toList());
+		return stops.stream().map(stopMapper::entityToDto).collect(Collectors.toList());
 	}
 
 	public StopDTO addStop(StopCreationDTO stopCreationDTO, Integer routeId) {
-		Stop newStop = stopMapper.toStop(stopCreationDTO);
+		Stop newStop = stopMapper.creationDtoToEntity(stopCreationDTO);
 		
 		newStop.setStatus("Incomplete");
 		newStop.setRouteId(routeId);
 
 		stopDAO.save(newStop);
 
-		return stopMapper.toStopDTO(newStop);
+		return stopMapper.entityToDto(newStop);
 	}
 
 	public List<LatLng> getStopLocations(List<StopDTO> stops) {

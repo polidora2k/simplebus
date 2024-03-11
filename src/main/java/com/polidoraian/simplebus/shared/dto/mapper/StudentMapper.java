@@ -3,30 +3,22 @@ package com.polidoraian.simplebus.shared.dto.mapper;
 import com.polidoraian.simplebus.shared.database.entity.Student;
 import com.polidoraian.simplebus.shared.dto.StudentCreationDTO;
 import com.polidoraian.simplebus.shared.dto.StudentDTO;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class StudentMapper {
-	@Autowired
-	private ModelMapper mapper;
-
-	public StudentCreationDTO toStudentCreationDTO(Student student) {
-		return mapper.map(student, StudentCreationDTO.class);
-	}
-
-	public Student toStudent(StudentCreationDTO studentCreationDTO) {
-
-		return mapper.map(studentCreationDTO, Student.class);
-	}
-
-	public Student toStudent(StudentDTO studentDTO) {
-
-		return mapper.map(studentDTO, Student.class);
-	}
-
-	public StudentDTO toStudentDTO(Student student) {
-		return mapper.map(student, StudentDTO.class);
-	}
+@Mapper(componentModel = "spring",
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface StudentMapper {
+    @Mapping(target = "state", ignore = true)
+    Student dtoToEntity(StudentDTO studentDTO);
+    
+    @Mapping(target = "status", ignore = true)
+    StudentDTO entityToDto(Student student);
+    
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "parentId", ignore = true)
+    @Mapping(target = "riding", ignore = true)
+    @Mapping(target = "stopId", ignore = true)
+    Student creationDtoToEntity(StudentCreationDTO studentCreationDTO);
 }

@@ -2,26 +2,15 @@ package com.polidoraian.simplebus.shared.dto.mapper;
 
 import com.polidoraian.simplebus.shared.database.entity.Route;
 import com.polidoraian.simplebus.shared.dto.RouteDTO;
-import com.polidoraian.simplebus.shared.service.StopService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class RouteMapper {
-	@Autowired
-	private ModelMapper mapper;
-	
-	@Autowired
-	private StopService stopService;
-	
-	public RouteDTO toRouteDTO(Route route) {
-		RouteDTO routeDTO = mapper.map(route, RouteDTO.class);
-		
-		return routeDTO;
-	}
-
-	public Route toRoute(RouteDTO routeDTO) {
-		return mapper.map(routeDTO, Route.class);
-	}
+@Mapper(componentModel = "spring",
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface RouteMapper {
+    @Mapping(target = "stops", ignore = true)
+    Route dtoToEntity(RouteDTO routeDTO);
+    
+    RouteDTO entityToDto(Route route);
 }

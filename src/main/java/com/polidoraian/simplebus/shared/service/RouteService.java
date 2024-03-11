@@ -29,7 +29,7 @@ public class RouteService {
 		Optional<Route> route = routeDAO.findById(id);
 
 		if (route.isPresent()) {
-			return routeMapper.toRouteDTO(route.get());
+			return routeMapper.entityToDto(route.get());
 		} else {
 			log.warn("No user found for id: " + id);
 			return null;
@@ -73,7 +73,7 @@ public class RouteService {
 		
 		routeDAO.save(route);
 		
-		return routeMapper.toRouteDTO(route);
+		return routeMapper.entityToDto(route);
 	}
 	
 	public Boolean resetRoutes(){
@@ -93,6 +93,6 @@ public class RouteService {
 	public List<RouteDTO> getAllRoutes(){
 		List<Route> routes = routeDAO.findAll();
 		
-		return routes.stream().map(r -> routeMapper.toRouteDTO(r)).collect(Collectors.toList());
+		return routes.stream().map(routeMapper::entityToDto).collect(Collectors.toList());
 	}
 }
