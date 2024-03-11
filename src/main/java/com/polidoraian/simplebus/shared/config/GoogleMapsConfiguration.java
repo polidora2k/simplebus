@@ -9,7 +9,7 @@ import com.google.maps.GeoApiContext;
 
 @Configuration
 public class GoogleMapsConfiguration {
-	@Value("google.api-key")
+	@Value("${google.api-key}")
 	private String apiKey;
 
 	@Bean
