@@ -6,10 +6,10 @@ import com.polidoraian.simplebus.shared.dto.RouteDTO;
 import com.polidoraian.simplebus.shared.dto.StopDTO;
 import com.polidoraian.simplebus.shared.dto.UserDTO;
 import com.polidoraian.simplebus.shared.security.AuthenticatedUserService;
-import com.polidoraian.simplebus.shared.service.DriverService;
-import com.polidoraian.simplebus.shared.service.RouteService;
-import com.polidoraian.simplebus.shared.service.StopService;
-import com.polidoraian.simplebus.shared.service.StudentService;
+import com.polidoraian.simplebus.shared.service.impl.DriverServiceImpl;
+import com.polidoraian.simplebus.shared.service.impl.RouteServiceImpl;
+import com.polidoraian.simplebus.shared.service.impl.StopServiceImpl;
+import com.polidoraian.simplebus.shared.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -30,16 +30,16 @@ public class DriverController {
 	private AuthenticatedUserService aus;
 	
 	@Autowired
-	private DriverService driverService;
+	private DriverServiceImpl driverService;
 	
 	@Autowired
-	private RouteService routeService;
+	private RouteServiceImpl routeService;
 	
 	@Autowired
-	private StopService stopService;
+	private StopServiceImpl stopService;
 	
 	@Autowired
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 	
 	@GetMapping("/driver")
 	public ModelAndView showDriverPage() {

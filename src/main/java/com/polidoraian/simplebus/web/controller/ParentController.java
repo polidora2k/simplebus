@@ -4,7 +4,7 @@ package com.polidoraian.simplebus.web.controller;
 import com.polidoraian.simplebus.shared.dto.StudentCreationDTO;
 import com.polidoraian.simplebus.shared.dto.UserDTO;
 import com.polidoraian.simplebus.shared.security.AuthenticatedUserService;
-import com.polidoraian.simplebus.shared.service.ParentService;
+import com.polidoraian.simplebus.shared.service.impl.ParentServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +27,7 @@ public class ParentController {
 	private AuthenticatedUserService aus;
 
 	@Autowired
-	private ParentService parentService;
+	private ParentServiceImpl parentService;
 	
 	
 

@@ -1,6 +1,6 @@
 package com.polidoraian.simplebus.shared.dto.mapper;
 
-import com.polidoraian.simplebus.shared.database.entity.User;
+import com.polidoraian.simplebus.shared.entity.User;
 import com.polidoraian.simplebus.shared.dto.UserCreationDTO;
 import com.polidoraian.simplebus.shared.dto.UserDTO;
 import org.mapstruct.Mapper;

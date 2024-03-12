@@ -4,8 +4,8 @@ import java.util.Collection;
 
 
 
-import com.polidoraian.simplebus.shared.database.dao.UserDAO;
-import com.polidoraian.simplebus.shared.database.entity.User;
+import com.polidoraian.simplebus.shared.repository.UserRepository;
+import com.polidoraian.simplebus.shared.entity.User;
 import com.polidoraian.simplebus.shared.dto.UserCreationDTO;
 import com.polidoraian.simplebus.shared.dto.UserDTO;
 import com.polidoraian.simplebus.shared.dto.mapper.UserMapper;
@@ -28,7 +28,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class AuthenticatedUserService {
 
 	@Autowired
-	private UserDAO userDao;
+	private UserRepository userRepository;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -68,7 +68,7 @@ public class AuthenticatedUserService {
 		HttpSession session = attr.getRequest().getSession(true); // true == allow create
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
-			user = userDao.findByEmail(getCurrentUsername());
+			user = userRepository.findByEmail(getCurrentUsername());
 			session.setAttribute("user", user);
 		}
 		return userMapper.entityToDto(user);

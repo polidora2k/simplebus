@@ -63,9 +63,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
-
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-
 }
 
 tasks.named('test') {

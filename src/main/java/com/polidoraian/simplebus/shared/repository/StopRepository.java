@@ -1,16 +1,14 @@
-package com.polidoraian.simplebus.shared.database.dao;
+package com.polidoraian.simplebus.shared.repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.polidoraian.simplebus.shared.database.entity.Stop;
+import com.polidoraian.simplebus.shared.entity.Stop;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StopDAO extends JpaRepository<Stop, Integer> {
-	Optional<Stop> findById(Integer id);
-	
+public interface StopRepository extends JpaRepository<Stop, Integer> {
 	List<Stop> findByRouteIdOrderByRouteStopNumberAsc(Integer routeId);
 	
 	List<Stop> findByRouteId(Integer routeId);

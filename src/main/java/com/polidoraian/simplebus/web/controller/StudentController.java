@@ -3,10 +3,10 @@ package com.polidoraian.simplebus.web.controller;
 import com.polidoraian.simplebus.shared.dto.RouteDTO;
 import com.polidoraian.simplebus.shared.dto.StopDTO;
 import com.polidoraian.simplebus.shared.dto.StudentDTO;
-import com.polidoraian.simplebus.shared.service.DriverService;
-import com.polidoraian.simplebus.shared.service.RouteService;
-import com.polidoraian.simplebus.shared.service.StopService;
-import com.polidoraian.simplebus.shared.service.StudentService;
+import com.polidoraian.simplebus.shared.service.impl.DriverServiceImpl;
+import com.polidoraian.simplebus.shared.service.impl.RouteServiceImpl;
+import com.polidoraian.simplebus.shared.service.impl.StopServiceImpl;
+import com.polidoraian.simplebus.shared.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,16 +23,16 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentController {
 	
 	@Autowired
-	StudentService studentService;
+	StudentServiceImpl studentService;
 	
 	@Autowired
-	StopService stopService;
+	StopServiceImpl stopService;
 	
 	@Autowired
-	RouteService routeService;
+	RouteServiceImpl routeService;
 	
 	@Autowired
-	DriverService driverService;
+    DriverServiceImpl driverService;
 	
 	@PreAuthorize("hasAuthority('PARENT')")
 	@GetMapping("/parent/student/{id}")

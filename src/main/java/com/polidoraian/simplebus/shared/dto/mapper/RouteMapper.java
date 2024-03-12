@@ -1,6 +1,6 @@
 package com.polidoraian.simplebus.shared.dto.mapper;
 
-import com.polidoraian.simplebus.shared.database.entity.Route;
+import com.polidoraian.simplebus.shared.entity.Route;
 import com.polidoraian.simplebus.shared.dto.RouteDTO;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;

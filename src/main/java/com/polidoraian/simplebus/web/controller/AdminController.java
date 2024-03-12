@@ -6,8 +6,8 @@ import com.polidoraian.simplebus.shared.dto.RouteDTO;
 import com.polidoraian.simplebus.shared.dto.StopCreationDTO;
 import com.polidoraian.simplebus.shared.dto.UserDTO;
 import com.polidoraian.simplebus.shared.security.AuthenticatedUserService;
-import com.polidoraian.simplebus.shared.service.RouteService;
-import com.polidoraian.simplebus.shared.service.StopService;
+import com.polidoraian.simplebus.shared.service.impl.RouteServiceImpl;
+import com.polidoraian.simplebus.shared.service.impl.StopServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,10 +31,10 @@ public class AdminController {
 	private AuthenticatedUserService aus;
 	
 	@Autowired
-	private StopService stopService;
+	private StopServiceImpl stopService;
 	
 	@Autowired
-	private RouteService routeService;
+	private RouteServiceImpl routeService;
 	
 	@GetMapping("/admin")
 	public ModelAndView showAdminPage() {

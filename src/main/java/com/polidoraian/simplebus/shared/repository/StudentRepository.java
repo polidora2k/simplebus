@@ -1,15 +1,12 @@
-package com.polidoraian.simplebus.shared.database.dao;
+package com.polidoraian.simplebus.shared.repository;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.polidoraian.simplebus.shared.database.entity.Student;
-import jakarta.annotation.Nonnull;
-import org.jetbrains.annotations.NotNull;
+import com.polidoraian.simplebus.shared.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface StudentDAO extends JpaRepository<Student, Integer> {
+public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<Student> findByParentId(Integer parentId);
 	
 	@Query("SELECT s FROM Student s WHERE s.parentId = :parentId AND s.riding = true")

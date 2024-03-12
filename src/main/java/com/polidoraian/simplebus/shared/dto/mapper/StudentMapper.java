@@ -1,6 +1,6 @@
 package com.polidoraian.simplebus.shared.dto.mapper;
 
-import com.polidoraian.simplebus.shared.database.entity.Student;
+import com.polidoraian.simplebus.shared.entity.Student;
 import com.polidoraian.simplebus.shared.dto.StudentCreationDTO;
 import com.polidoraian.simplebus.shared.dto.StudentDTO;
 import org.mapstruct.InjectionStrategy;

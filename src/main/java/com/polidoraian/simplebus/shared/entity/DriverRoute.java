@@ -1,12 +1,7 @@
-package com.polidoraian.simplebus.shared.database.entity;
+package com.polidoraian.simplebus.shared.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,8 +16,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "user_roles")
-public class UserRole {
+@Table(name = "driver_routes")
+public class DriverRoute {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
@@ -31,6 +26,6 @@ public class UserRole {
 	@Column(name = "user_id")
 	private Integer userId;
 	
-	@Column(name = "role_name")
-	private String roleName;
+	@Column(name = "route_id")
+	private Integer routeId;
 }

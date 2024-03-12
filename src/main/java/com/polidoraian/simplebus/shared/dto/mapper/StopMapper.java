@@ -1,6 +1,6 @@
 package com.polidoraian.simplebus.shared.dto.mapper;
 
-import com.polidoraian.simplebus.shared.database.entity.Stop;
+import com.polidoraian.simplebus.shared.entity.Stop;
 import com.polidoraian.simplebus.shared.dto.StopCreationDTO;
 import com.polidoraian.simplebus.shared.dto.StopDTO;
 import org.mapstruct.InjectionStrategy;

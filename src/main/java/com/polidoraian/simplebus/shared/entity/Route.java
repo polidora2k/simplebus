@@ -1,10 +1,15 @@
-package com.polidoraian.simplebus.shared.database.entity;
+package com.polidoraian.simplebus.shared.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,22 +26,23 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "routes")
+public class Route {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private Integer id;
 	
-	@Column(name = "first_name")
-	private String firstName;
+	@Column(name = "name", unique = true)
+	private String name;
 	
-	@Column(name = "last_name")
-	private String lastName;
+	@Column(name = "status")
+	private String status;
 	
-	@Column(name = "email", unique = true)
-	private String email;
+	@Column(name = "last_completed_stop_id", unique = true)
+	private Integer lastCompletedStopId;
 	
-	@Column(name = "password")
-	private String password;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "route_id")
+	private List<Stop> stops;
 }

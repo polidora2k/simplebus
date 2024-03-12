@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.polidoraian.simplebus.shared.database.dao.UserDAO;
-import com.polidoraian.simplebus.shared.database.dao.UserRoleDAO;
-import com.polidoraian.simplebus.shared.database.entity.User;
-import com.polidoraian.simplebus.shared.database.entity.UserRole;
+import com.polidoraian.simplebus.shared.repository.UserRepository;
+import com.polidoraian.simplebus.shared.repository.UserRoleRepository;
+import com.polidoraian.simplebus.shared.entity.User;
+import com.polidoraian.simplebus.shared.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,20 +19,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
-	private UserDAO userDAO;
+	private UserRepository userRepository;
 	
 	@Autowired
-	private UserRoleDAO userRoleDAO;
+	private UserRoleRepository userRoleRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userDAO.findByEmail(username);
+		User user = userRepository.findByEmail(username);
 
 		if (user == null) {
 			throw new UsernameNotFoundException("Username '" + username + "' not found in database");
 		}
 
-		List<UserRole> userRoles = userRoleDAO.findByUserId(user.getId());
+		List<UserRole> userRoles = userRoleRepository.findByUserId(user.getId());
 
 		// check the account status
 		boolean accountIsEnabled = true;

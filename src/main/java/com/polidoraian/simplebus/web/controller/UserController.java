@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 
 import com.polidoraian.simplebus.shared.dto.UserCreationDTO;
 import com.polidoraian.simplebus.shared.security.AuthenticatedUserService;
-import com.polidoraian.simplebus.shared.service.UserService;
+import com.polidoraian.simplebus.shared.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserController {
 	@Autowired
-	UserService userService;
+	UserServiceImpl userService;
 
 	@Autowired
 	AuthenticatedUserService aus;

@@ -1,4 +1,4 @@
-package com.polidoraian.simplebus.shared.database.entity;
+package com.polidoraian.simplebus.shared.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
