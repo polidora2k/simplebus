@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'war'
 	id 'groovy'
-	id 'org.springframework.boot' version '3.0.7'
+	id 'org.springframework.boot' version "${springBootVersion}"
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -22,48 +22,48 @@ repositories {
 
 dependencies {
 	// TOMCAT EMBED
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.apache.tomcat.embed:tomcat-embed-jasper:11.0.0-M1'
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	compileOnly "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 
 	// DATABASE
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly "com.mysql:mysql-connector-j:${mySqlVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 
 	// DEV TOOLS
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 
 	// UTILITIES
-	annotationProcessor 'org.projectlombok:lombok'
-	compileOnly 'org.projectlombok:lombok'
-	implementation 'org.apache.commons:commons-lang3:3.12.0'
-	implementation 'org.modelmapper:modelmapper:3.1.1'
-	implementation 'org.apache.commons:commons-collections4:4.4'
-	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-	compileOnly 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	implementation "org.apache.commons:commons-lang3:${apacheCommonsLang3Version}"
+	implementation "org.apache.commons:commons-collections4:${apacheCollectionsVersion}"
+
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
 	// MAPS
-	implementation 'com.google.maps:google-maps-services:2.1.2'
+	implementation "com.google.maps:google-maps-services:${googleMapsVersion}"
 
 	// SECURITY
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	testImplementation 'org.springframework.security:spring-security-test'
-	implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.1'
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+	testImplementation "org.springframework.security:spring-security-test:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
+	implementation "jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}"
 
 
 	// TESTING
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
-	testImplementation 'org.apache.groovy:groovy-all:4.0.7'
-	testImplementation 'net.bytebuddy:byte-buddy:1.12.22'
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	testImplementation "org.spockframework:spock-core:${spockVersion}"
+	testImplementation "org.apache.groovy:groovy-all:${groovyVersion}"
+	testImplementation "net.bytebuddy:byte-buddy:${byteBuddyVersion}"
 
 	// THYMELEAF
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
+	implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity6:${thymeleafSecurityVersion}"
 
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
 }
 
 tasks.named('test') {
