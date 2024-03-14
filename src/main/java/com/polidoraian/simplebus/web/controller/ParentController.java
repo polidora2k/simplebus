@@ -5,6 +5,7 @@ import com.polidoraian.simplebus.shared.dto.StudentCreationDTO;
 import com.polidoraian.simplebus.shared.dto.UserDTO;
 import com.polidoraian.simplebus.shared.security.AuthenticatedUserService;
 import com.polidoraian.simplebus.shared.service.impl.ParentServiceImpl;
+import jakarta.annotation.Nonnull;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,24 +15,26 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/parent")
 @PreAuthorize("hasAuthority('PARENT')")
 public class ParentController {
-
-	@Autowired
-	private AuthenticatedUserService aus;
-
-	@Autowired
-	private ParentServiceImpl parentService;
+	private final AuthenticatedUserService aus;
+	private final ParentServiceImpl parentService;
 	
+	public ParentController(@Nonnull final AuthenticatedUserService aus,
+							@Nonnull final ParentServiceImpl parentService) {
+		this.aus = aus;
+		this.parentService = parentService;
+	}
 	
-
-	@GetMapping("/parent")
+	@GetMapping("/")
 	public ModelAndView showParentPage() {
 		UserDTO currentUser = aus.getCurrentUser();
 		ModelAndView response = new ModelAndView();
@@ -45,7 +48,7 @@ public class ParentController {
 		return response;
 	}
 
-	@GetMapping("/parent/addstudent")
+	@GetMapping("/add-student")
 	public ModelAndView showAddStudentPage() {
 		ModelAndView response = new ModelAndView();
 		response.setViewName("add_student");
@@ -53,7 +56,7 @@ public class ParentController {
 		return response;
 	}
 
-	@PostMapping("/parent/addstudent")
+	@PostMapping("/add-student")
 	public ModelAndView addStudent(@Valid StudentCreationDTO studentCreationDTO, BindingResult result) {
 		ModelAndView response = new ModelAndView();
 		log.debug("addStudent Handler method.");

@@ -10,38 +10,39 @@ import com.polidoraian.simplebus.shared.service.impl.DriverServiceImpl;
 import com.polidoraian.simplebus.shared.service.impl.RouteServiceImpl;
 import com.polidoraian.simplebus.shared.service.impl.StopServiceImpl;
 import com.polidoraian.simplebus.shared.service.impl.StudentServiceImpl;
+import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/driver")
 @PreAuthorize("hasAuthority('DRIVER')")
 public class DriverController {
-
-	@Autowired
-	private AuthenticatedUserService aus;
+	private final AuthenticatedUserService aus;
+	private final DriverServiceImpl driverService;
+	private final RouteServiceImpl routeService;
+	private final StopServiceImpl stopService;
+	private final StudentServiceImpl studentService;
 	
-	@Autowired
-	private DriverServiceImpl driverService;
+	public DriverController(@Nonnull final AuthenticatedUserService aus,
+							@Nonnull final DriverServiceImpl driverService,
+							@Nonnull final RouteServiceImpl routeService,
+							@Nonnull final StopServiceImpl stopService,
+							@Nonnull final StudentServiceImpl studentService) {
+		this.aus = aus;
+		this.driverService = driverService;
+		this.routeService = routeService;
+		this.stopService = stopService;
+		this.studentService = studentService;
+	}
 	
-	@Autowired
-	private RouteServiceImpl routeService;
-	
-	@Autowired
-	private StopServiceImpl stopService;
-	
-	@Autowired
-	private StudentServiceImpl studentService;
-	
-	@GetMapping("/driver")
+	@GetMapping("/")
 	public ModelAndView showDriverPage() {
 		UserDTO currentUser = aus.getCurrentUser();
 		ModelAndView response = new ModelAndView();
@@ -53,7 +54,7 @@ public class DriverController {
 		return response;
 	}
 	
-	@GetMapping("/driver/route/{id}")
+	@GetMapping("/route/{id}")
 	public ModelAndView showRouteInfoPage(@PathVariable Integer id) {
 		ModelAndView response = new ModelAndView();
 		response.setViewName("route");
@@ -68,7 +69,7 @@ public class DriverController {
 		return response;
 	}
 	
-	@GetMapping("/driver/route/{id}/onboarding")
+	@GetMapping("/route/{id}/onboarding")
 	public ModelAndView showRouteOnboardingPage(@PathVariable Integer id) {
 		ModelAndView response = new ModelAndView();
 		response.setViewName("route_onboarding");
@@ -83,7 +84,7 @@ public class DriverController {
 		return response;
 	}
 	
-	@GetMapping("/driver/route/{routeId}/stop/{stopId}")
+	@GetMapping("/route/{routeId}/stop/{stopId}")
 	public ModelAndView showCurrentStop(@PathVariable Integer routeId, @PathVariable Integer stopId) {
 		ModelAndView response = new ModelAndView();
 		response.setViewName("stop_inprogress");
@@ -106,20 +107,20 @@ public class DriverController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/completestop")
+	@GetMapping("/complete-stop")
 	public void completeStop(@RequestParam Integer stopId, @RequestParam Integer routeId) {
 		stopService.completeStop(stopId);
 		routeService.advanceStop(routeId, stopId);
 	}
 	
 	@ResponseBody
-	@GetMapping("/completeroute")
+	@GetMapping("/complete-route")
 	public void completeRoute(@RequestParam Integer routeId) {
 		routeService.completeRoute(routeId);
 	}
 	
 	@ResponseBody
-	@GetMapping("/startroute")
+	@GetMapping("/start-route")
 	public String startRoute(@RequestParam Integer routeId) {
 		log.debug("Start Route method reached");
 		routeService.startRoute(routeId);

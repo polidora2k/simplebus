@@ -1,0 +1,7 @@
+id,name,street_address,city,state,zipcode,status,route_id,route_stop_number
+1,Hilltop,"1046 Chestnut Street",Ambridge,PA,15003,Incomplete,1,1
+4,Downtown,"1800 Beaver Rd",Ambridge,PA,15003,Incomplete,1,2
+5,East,"725 Glenwood Ave",Ambridge,PA,15003,Incomplete,1,3
+6,West,"1099 Merchant St",Ambridge,PA,15003,Incomplete,1,4
+8,"Downtown Sewickley","1101 Beaver Rd",Sewickley,PA,15143,Incomplete,NULL,NULL
+9,"St. John's","1409 Pennsylvania Avenue",Monaca,PA,15061,Incomplete,3,1

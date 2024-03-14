@@ -1,5 +1,7 @@
 package com.polidoraian.simplebus.web.controller;
 
+import com.polidoraian.simplebus.shared.security.RoleEnum;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -13,34 +15,41 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping("/user")
 public class UserController {
-	@Autowired
-	UserServiceImpl userService;
-
-	@Autowired
-	AuthenticatedUserService aus;
-
-	@GetMapping("/user/signup")
+	private final UserServiceImpl userService;
+	private final AuthenticatedUserService aus;
+	
+	public UserController(@Nonnull final UserServiceImpl userService,
+						  @Nonnull final AuthenticatedUserService aus) {
+		this.userService = userService;
+		this.aus = aus;
+	}
+	
+	@GetMapping("/signup")
 	public ModelAndView showSignUpPage() {
 		ModelAndView response = new ModelAndView();
+		response.addObject("newUser", new UserCreationDTO());
+		response.addObject("roles", RoleEnum.values());
 		response.setViewName("signup");
 		log.debug("Successfully showing signup page");
 
 		return response;
 	}
 
-	@PostMapping("/user/signup")
+	@PostMapping("/signup")
 	public ModelAndView submitSignUp(@Valid UserCreationDTO userCreationDTO, BindingResult result,
 			HttpServletRequest request) {
 		ModelAndView response = new ModelAndView();
 
-		response.addObject("form", userCreationDTO);
+		response.addObject("newUser", userCreationDTO);
 		
 		for (ObjectError e : result.getAllErrors()) {
 			if (e instanceof FieldError) {
@@ -76,7 +85,7 @@ public class UserController {
 		return response;
 	}
 
-	@GetMapping("/user/login")
+	@GetMapping("/login")
 	public ModelAndView showLoginPage() {
 		ModelAndView response = new ModelAndView();
 		response.setViewName("login");

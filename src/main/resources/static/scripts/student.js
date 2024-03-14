@@ -14,7 +14,7 @@ $(document).ready(
             console.log("user clicked : " + $(this).prop("checked"));
             console.log($("#studentId").val());
             $.ajax({
-                url: "/changeriding",
+                url: "/change-riding",
                 data: { 
                     id: $("#studentId").val(),
                     riding: $(this).prop("checked")
