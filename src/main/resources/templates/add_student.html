@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>SimpleBus</title>
@@ -20,18 +20,16 @@
             <label for="firstName" class="form-label">First Name<span class="text-danger">*</span></label>
             <div class="has-validation">
               <input type="text" name="firstName" class="form-control" id="firstName"
-                     value="${form.firstName}" required/>
-              <div class="text-danger">
-                ${firstNameMessage}
+                     th:value="${form.firstName}" required/>
+              <div class="text-danger" th:text="${firstNameMessage}">
               </div>
             </div>
           </div>
           <div class="col">
             <label for="lastName" class="form-label">Last Name<span class="text-danger">*</span></label>
             <input type="text" name="lastName" class="form-control" id="lastName"
-                   value="${form.lastName}" required/>
-            <div class="text-danger">
-              ${lastNameMessage}
+                   th:value="${form.lastName}" required/>
+            <div class="text-danger" th:text="${lastNameMessage}">
             </div>
           </div>
         </div>
@@ -39,9 +37,8 @@
           <div class="col">
             <label for="streetAddress" class="form-label">Street Address<span class="text-danger">*</span></label>
             <input type="text" name="streetAddress" class="form-control" id="streetAddress"
-                   value="${form.streetAddress}" required/>
-            <div class="text-danger">
-              ${streetAddressMessage}
+                   th:value="${form.streetAddress}" required/>
+            <div class="text-danger" th:text="${streetAddressMessage}">
             </div>
           </div>
         </div>
@@ -49,24 +46,21 @@
           <div class="col">
             <label for="city" class="form-label">City<span class="text-danger">*</span></label>
             <input type="text" name="city" class="form-control" id="city"
-                   value="${form.city}" required/>
-            <div class="text-danger">
-              ${cityMessage}
+                   th:value="${form.city}" required/>
+            <div class="text-danger" th:text="${cityMessage}">
             </div>
           </div>
           <div class="col">
             <label for="state" class="form-label">State<span class="text-danger">*</span></label>
             <div th:replace="~{fragments/state-dropdown}"></div>
-            <div class="text-danger">
-              ${stateMessage}
+            <div class="text-danger" th:text="${stateMessage}">
             </div>
           </div>
           <div class="col">
             <label for="zipcode" class="form-label">Zipcode<span class="text-danger">*</span></label>
             <input type="text" name="zipcode" pattern="[\d]*" class="form-control" id="zipcode"
-                   value="${form.zipcode}" maxlength="5" required/>
-            <div class="text-danger">
-              ${zipcodeMessage}
+                   th:value="${form.zipcode}" maxlength="5" required/>
+            <div class="text-danger" th:text="${zipcodeMessage}">
             </div>
           </div>
         </div>

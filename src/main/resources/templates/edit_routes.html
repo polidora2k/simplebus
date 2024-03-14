@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Dashboard</title>
@@ -20,11 +19,10 @@
         <div class="row mt-3">
           <div class="col">
             <ul class="list-group">
-              <c:forEach items="${routes}" var="route">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                  ${route.name}
-                  <a href="/admin/addroute/${route.id}/addstops" class="btn btn-warning">Add Stops</a>
-              </c:forEach>
+              <th:block th:each="routeEntity: ${routeEntities}">
+                <li class="list-group-item d-flex justify-content-between align-items-center" th:text="${routeEntity.name}">
+                  <a href="/admin/addroute/${routeEntity.id}/addstops" class="btn btn-warning">Add Stops</a>
+              </th:block>
             </ul>
           </div>
         </div>

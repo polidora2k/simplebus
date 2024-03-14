@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Add Route</title>
@@ -12,7 +12,7 @@
 
   <!-- SIGN UP FORM -->
   <div class="border align-self-center shadow rounded p-3 my-auto bg-light ">
-    <form class="needs-validation" style="width: 500px;" action="/admin/addroute" method="POST"
+    <form action="#" th:action="@{/admin/addroute}" th:object="${routeDTO}" class="needs-validation" style="width: 500px;" method="POST"
           novalidate>
       <h1 class="text-left mb-4 mt-3 ms-3">Add New Route</h1>
       <div class="container">
@@ -21,10 +21,8 @@
             <label for="routeName" class="form-label">Route Name<span
                     class="text-danger">*</span></label>
             <div class="has-validation">
-              <input type="text" name="routeName" class="form-control" id="routeName"
-                     value="${form.routeName}" required/>
-              <div class="text-danger">
-                ${firstNameMessage}
+              <input type="text" name="routeName" class="form-control" id="routeName" th:field="*{name}" required/>
+              <div class="text-danger" th:text="${firstNameMessage}">
               </div>
             </div>
           </div>

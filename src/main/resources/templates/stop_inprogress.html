@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Route</title>
@@ -14,7 +13,7 @@
           $.ajax({
               url: "/completeroute",
               data: {
-                  routeId: "${route.id}"
+                  routeId: "${routeEntity.id}"
               },
               success: function(result) {
                   console.log(result);
@@ -32,7 +31,7 @@
               url: "/completestop",
               data: {
                   stopId: "${currentStop.id}",
-                  routeId: "${route.id}"
+                  routeId: "${routeEntity.id}"
               },
               success: function(result) {
                   console.log(result);
@@ -54,9 +53,9 @@
   <div class="border align-self-center shadow rounded p-3 my-auto bg-light container">
     <div class="row border-bottom border-4 pb-3">
       <div class="col">
-        <input type="hidden" value="${route.id}" id="routeId" name="routeId">
+        <input type="hidden" th:value="${routeEntity.id}" id="routeId" name="routeId">
         <div class="row">
-          <h2>Next Stop: ${currentStop.name}</h2>
+          <h2 th:text="Next Stop: ${currentStop.name}"></h2>
         </div>
       </div>
     </div>
@@ -65,39 +64,39 @@
         <h5>Students Departing:</h5>
         <p class="text-danger"
            style="font-size: 9pt; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-          Ensure that all students departing at this stop have exited the bus</p>
+          Ensure that all students departing at this stopEntity have exited the bus</p>
         <div class="overflow-auto border rounded" style="height: 400px; background-color: #EFF3F3;">
-          <c:if test="${empty students}">
+          <th:block th:if="${empty students}">
             <div class="text-center w-100 h-100">
               <span class=" align-middle text-muted">No Students Departing</span>
             </div>
-          </c:if>
-          <c:if test="${not empty students}">
+          </th:block>
+          <th:block th:if="${not #lists.isEmpty(students)}">
             <ul class="list-group">
-              <c:forEach items="${students}" var="student">
+              <th:block th:each="student: ${students}">
                 <li class="list-group-item bg-light">
                   <input class="form-check-input me-1" type="checkbox"
-                         value="${student.id}" id="student${student.id}">
+                         th:value="${student.id}" id="student${student.id}">
                   <label class="form-check-label stretched-link"
-                         for="student${student.id}">${student.firstName}
-                    ${student.lastName}</label>
+                         for="student${student.id}"
+                         th:text="${student.firstName} ${student.lastName}"></label>
                 </li>
-              </c:forEach>
+              </th:block>
             </ul>
-          </c:if>
+          </th:block>
         </div>
-        <c:if test="${nextStop == null}">
+        <th:block th:if="${nextStop == null}">
           <button id="finish" class="btn btn-warning mt-2 w-100 disabled" value="/driver">Finish Route</button>
           <a href="/driver" class="btn btn-warning mt-2 w-100 disabled" id="finish1" hidden>Finish
             Route</a>
-        </c:if>
-        <c:if test="${nextStop != null}">
+        </th:block>
+        <th:block th:if="${nextStop != null}">
           <button id="nextStop" class="btn btn-warning mt-2 w-100 disabled"
-                  value="/driver/route/${route.id}/stop/${nextStop.id}">Next Stop
+                  th:value="/driver/routeEntity/${routeEntity.id}/stopEntity/${nextStop.id}">Next Stop
           </button>
-          <a href="/driver/route/${route.id}/stop/${nextStop.id}"
+          <a href="/driver/routeEntity/${routeEntity.id}/stopEntity/${nextStop.id}"
              class="btn btn-warning mt-2 w-100 disabled" id="nextStop1" hidden>Next Stop</a>
-        </c:if>
+        </th:block>
 
       </div>
     </div>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Sign Up</title>
@@ -13,17 +12,17 @@
 
   <!-- SIGN UP FORM -->
   <div class="border align-self-center shadow rounded p-3 my-auto bg-light ">
-    <form class="needs-validation" style="width: 500px;" action="/user/signup" method="POST" novalidate>
+    <form class="needs-validation" style="width: 500px;" action="#" th:action="@{/user/signup}" th:object="${newUser}" method="POST" novalidate>
       <h1 class="text-center mb-4 mt-3">Sign Up</h1>
       <div class="container">
         <div class="row mb-4">
           <div class="btn-group" name="user-type" role="group" aria-label="User Type Select">
             <input type="radio" class="btn-check" name="role" id="parent" autocomplete="off"
-                   value="Parent" checked required/>
+                   value="Parent" th:field="*{role}" checked required/>
             <label class="btn btn-outline-warning" for="parent">Parent</label>
 
             <input type="radio" class="btn-check" name="role" id="driver" autocomplete="off"
-                   value="Driver" checked required/>
+                   value="Driver" th:field="*{role}" checked required/>
             <label class="btn btn-outline-warning" for="driver">Driver</label>
           </div>
         </div>
@@ -32,50 +31,40 @@
             <label for="firstName" class="form-label">First Name</label>
             <div class="has-validation">
               <input type="text" name="firstName" class="form-control" id="firstName"
-                     value="${user.firstName}" required/>
-              <div class="text-danger">
-                ${firstNameMessage}
-              </div>
+                     th:field="*{firstName}" required/>
+              <div class="text-danger" th:text="${firstNameMessage}"></div>
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName" class="form-label">Last Name</label>
             <input type="text" name="lastName" class="form-control" id="lastName"
-                   value="${user.lastName}" required/>
-            <div class="text-danger">
-              ${lastNameMessage}
-            </div>
+                   th:field="*{lastName}" required/>
+            <div class="text-danger" th:text="${lastNameMessage}"></div>
           </div>
           <div class="col-12 mb-3 has-validation">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email" value="${user.email}"
+            <input type="email" name="email" class="form-control" id="email" th:field="*{email}"
                    required/>
-            <div class="text-danger">
-              ${emailMessage}
-            </div>
+            <div class="text-danger" th:text="${emailMessage}"></div>
           </div>
           <div class="col-12 mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="password" required/>
-            <div class="text-danger">
-              ${passwordMessage}
-            </div>
-            <c:if test="${empty passwordMessage}">
+            <input type="password" name="password" class="form-control" id="password" th:field="*{password}" required/>
+            <div class="text-danger" th:text="${passwordMessage}"></div>
+            <th:block th:if="${#strings.isEmpty(passwordMessage)}">
               <div id="passwordHelp" class="form-text">
                 Password must be atleast 8 characters with one
                 uppercase letter, one lowercase letter, a number,
                 and one of the following special
                 characters: @, #, $, &, %, !.
               </div>
-            </c:if>
+            </th:block>
           </div>
           <div class="col-12">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
             <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
-                   required/>
-            <div class="text-danger">
-              ${confirmPasswordMessage}
-            </div>
+                   th:field="*{confirmPassword}" required/>
+            <div class="text-danger" th:text="${confirmPasswordMessage}"></div>
           </div>
           <div class="col-12 my-4 text-center">
             <button type="submit" class="btn btn-warning px-4">Sign Up</button>
@@ -85,7 +74,7 @@
               Have an account?
             </div>
             <div class="col">
-              <a href="/user/login" class="btn btn-warning px-5">Login</a>
+              <a href="./login.html" th:href="@{/user/login}" class="btn btn-warning px-5">Login</a>
             </div>
           </div>
         </div>

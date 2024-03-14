@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Route</title>
@@ -39,12 +38,12 @@
   <div class="border align-self-center shadow rounded p-3 my-auto bg-light w-75 container">
     <div class="row border-bottom border-4 pb-3">
       <div class="col">
-        <input type="hidden" value="${route.id}" id="routeId" name="routeId">
+        <input type="hidden" th:value="${routeEntity.id}" id="routeId" name="routeId">
         <div class="row">
-          <h2>${route.name}</h2>
+          <h2 th:text="${routeEntity.name}"></h2>
         </div>
         <div class="row">
-          <p class="mb-0">${student.streetAddress}</p>
+          <p class="mb-0" th:text="${student.streetAddress}"></p>
         </div>
       </div>
     </div>
@@ -52,21 +51,20 @@
       <div class="col p-4 ps-5">
         <h5>Stops:</h5>
         <div class="overflow-auto border rounded" style="height: 400px; background-color: #EFF3F3;">
-          <c:if test="${empty stops}">
+          <th:block th:if="${#lists.isEmpty(stopEntities)}">
             <div class="text-center w-100 h-100">
-              <span class=" align-middle text-muted">No unassigned stops</span>
+              <span class=" align-middle text-muted">No unassigned stopEntities</span>
             </div>
-          </c:if>
-          <c:if test="${not empty stops}">
+          </th:block>
+          <th:block th:if="${not #lists.isEmpty(stopEntities)}">
             <ul class="list-group">
-              <c:forEach items="${stops}" var="stop">
-                <li class="list-group-item">${stop.name}: ${stop.streetAddress} ${stop.city}
-                </li>
-              </c:forEach>
+              <th:block th:each="stopEntity: ${stopEntities}">
+                <li class="list-group-item" th:text="${stopEntity.name}: ${stopEntity.streetAddress} ${stopEntity.city}"></li>
+              </th:block>
             </ul>
-          </c:if>
+          </th:block>
         </div>
-        <a href="/driver/route/${route.id}/onboarding" class="btn btn-warning mt-2 w-100">Start Route</a>
+        <a href="/driver/routeEntity/${routeEntity.id}/onboarding" class="btn btn-warning mt-2 w-100">Start Route</a>
       </div>
       <div class="col p-4 ps-5">
         <div class="row">
